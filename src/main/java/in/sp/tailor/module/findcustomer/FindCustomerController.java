@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")  // Allows React to connect
+
 public class FindCustomerController {
 
     @Autowired
