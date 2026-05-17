@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000") // Allows React to connect
+@CrossOrigin(origins = "*")  // Allows React to connect
 public class FindCustomerController {
 
     @Autowired
