@@ -25,6 +25,23 @@ public class AddCustomerDaoImpl implements AddCustomerDao {
     }
 
     @Override
+    public boolean updateCustomer(Customer c) {
+        // Make sure the new mobile number isn't already used by a DIFFERENT customer
+        String checkSql = "SELECT customer_id FROM customers WHERE mobile_no = ? AND customer_id <> ?";
+        try {
+            jdbcTemplate.queryForObject(checkSql, Integer.class, c.getMobileNo(), c.getCustomerId());
+            // If we got here, a different customer already has this mobile number
+            throw new RuntimeException("This mobile number already belongs to another customer.");
+        } catch (EmptyResultDataAccessException e) {
+            // Good - no duplicate found, safe to update
+        }
+
+        String sql = "UPDATE customers SET full_name = ?, mobile_no = ?, address = ? WHERE customer_id = ?";
+        int rows = jdbcTemplate.update(sql, c.getFullName(), c.getMobileNo(), c.getAddress(), c.getCustomerId());
+        return rows > 0;
+    }
+
+    @Override
     public int saveOrder(ShopOrder o) {
         String shirtStatus = (o.getShirtQty() > 0) ? "PENDING" : "NA";
         String pantStatus = (o.getPantQty() > 0) ? "PENDING" : "NA";

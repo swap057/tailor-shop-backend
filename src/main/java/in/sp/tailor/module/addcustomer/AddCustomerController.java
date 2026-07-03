@@ -17,6 +17,17 @@ public class AddCustomerController {
         return addCustomerDao.saveCustomer(customer);
     }
 
+    // Update an existing customer's profile (name, mobile, village)
+    @PostMapping("/update-customer")
+    public String updateCustomer(@RequestBody Customer customer) {
+        boolean ok = addCustomerDao.updateCustomer(customer);
+        if (ok) {
+            return "Customer Updated Successfully";
+        } else {
+            throw new RuntimeException("Failed to update customer");
+        }
+    }
+
     // Matches 'addOrder' in api.js
     @PostMapping("/add-order")
     public String addOrder(@RequestBody ShopOrder order) {
