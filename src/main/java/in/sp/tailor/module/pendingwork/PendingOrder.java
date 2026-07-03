@@ -16,6 +16,8 @@ public class PendingOrder {
     private Date deadlineDate;
     private String status;
     private String remark;
+    private String shirtRemark;
+    private String pantRemark;
 
     // --- SHIRT Data ---
     private int shirtQty;
@@ -72,6 +74,12 @@ public class PendingOrder {
 
     public String getRemark() { return remark; }
     public void setRemark(String remark) { this.remark = remark; }
+
+    public String getShirtRemark() { return shirtRemark; }
+    public void setShirtRemark(String shirtRemark) { this.shirtRemark = shirtRemark; }
+
+    public String getPantRemark() { return pantRemark; }
+    public void setPantRemark(String pantRemark) { this.pantRemark = pantRemark; }
 
     // Shirt
     public int getShirtQty() { return shirtQty; }

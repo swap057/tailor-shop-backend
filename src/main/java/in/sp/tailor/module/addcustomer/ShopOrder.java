@@ -38,7 +38,9 @@ public class ShopOrder {
     private String pantStatus;        // For tracking pant progress separately
 
     // --- EXTRAS ---
-    private String remark;            // For special instructions
+    private String remark;            // For special instructions (general)
+    private String shirtRemark;       // Shirt-specific note for the stitcher
+    private String pantRemark;        // Pant-specific note for the stitcher
 
     // ============================
     //    GETTERS AND SETTERS
@@ -126,4 +128,10 @@ public class ShopOrder {
     // --- Remarks ---
     public String getRemark() { return remark; }
     public void setRemark(String remark) { this.remark = remark; }
+
+    public String getShirtRemark() { return shirtRemark; }
+    public void setShirtRemark(String shirtRemark) { this.shirtRemark = shirtRemark; }
+
+    public String getPantRemark() { return pantRemark; }
+    public void setPantRemark(String pantRemark) { this.pantRemark = pantRemark; }
 }

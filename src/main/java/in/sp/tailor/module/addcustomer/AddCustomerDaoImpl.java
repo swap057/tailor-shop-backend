@@ -49,24 +49,24 @@ public class AddCustomerDaoImpl implements AddCustomerDao {
         // ADDED shirt_half_sleeve and one extra '?' parameter
         String sql = "INSERT INTO orders (" +
                 "customer_id, order_date, deadline_date, language_req, status, " +
-                "shirt_length, shirt_chest, shirt_front, shirt_shoulder, shirt_sleeve, shirt_half_sleeve, shirt_collar, shirt_style, shirt_qty, shirt_status, " +
-                "pant_length, pant_waist, pant_thigh, pant_knee, pant_bottom, pant_below_waist, pant_style, pant_qty, pant_status, " +
+                "shirt_length, shirt_chest, shirt_front, shirt_shoulder, shirt_sleeve, shirt_half_sleeve, shirt_collar, shirt_style, shirt_qty, shirt_status, shirt_remark, " +
+                "pant_length, pant_waist, pant_thigh, pant_knee, pant_bottom, pant_below_waist, pant_style, pant_qty, pant_status, pant_remark, " +
                 "remark" +
-                ") VALUES (?, NOW(), ?, ?, 'PENDING', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                ") VALUES (?, NOW(), ?, ?, 'PENDING', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        return jdbcTemplate.update(sql, 
-                o.getCustomerId(), 
-                o.getDeadlineDate(), 
+        return jdbcTemplate.update(sql,
+                o.getCustomerId(),
+                o.getDeadlineDate(),
                 o.getLanguageReq(),
-                
-                // Shirt Params (ADDED o.getShirtHalfSleeve())
+
+                // Shirt Params
                 o.getShirtLength(), o.getShirtChest(), o.getShirtFront(), o.getShirtShoulder(),
-                o.getShirtSleeve(), o.getShirtHalfSleeve(), o.getShirtCollar(), o.getShirtStyle(), o.getShirtQty(), shirtStatus,
-                
+                o.getShirtSleeve(), o.getShirtHalfSleeve(), o.getShirtCollar(), o.getShirtStyle(), o.getShirtQty(), shirtStatus, o.getShirtRemark(),
+
                 // Pant Params
                 o.getPantLength(), o.getPantWaist(), o.getPantThigh(), o.getPantKnee(),
-                o.getPantBottom(), o.getPantBelowWaist(), o.getPantStyle(), o.getPantQty(), pantStatus,
-                
+                o.getPantBottom(), o.getPantBelowWaist(), o.getPantStyle(), o.getPantQty(), pantStatus, o.getPantRemark(),
+
                 // Remark
                 o.getRemark()
         );
