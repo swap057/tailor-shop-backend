@@ -34,6 +34,24 @@ public class PendingWorkDaoImpl implements PendingWorkDao {
 	}
 
 	@Override
+	public boolean updateOrderMeasurements(PendingOrder order) {
+		String sql = "UPDATE orders SET " +
+				"shirt_length = ?, shirt_front = ?, shirt_shoulder = ?, shirt_sleeve = ?, " +
+				"shirt_collar = ?, shirt_chest = ?, shirt_half_sleeve = ?, " +
+				"pant_length = ?, pant_below_waist = ?, pant_waist = ?, pant_thigh = ?, pant_knee = ?, pant_bottom = ? " +
+				"WHERE order_id = ?";
+
+		int rows = jdbcTemplate.update(sql,
+				order.getShirtLength(), order.getShirtFront(), order.getShirtShoulder(), order.getShirtSleeve(),
+				order.getShirtCollar(), order.getShirtChest(), order.getShirtHalfSleeve(),
+				order.getPantLength(), order.getPantBelowWaist(), order.getPantWaist(), order.getPantThigh(),
+				order.getPantKnee(), order.getPantBottom(),
+				order.getOrderId());
+
+		return rows > 0;
+	}
+
+	@Override
 	public boolean updateOrderProgress(PendingOrder order) {
 		// 1. Update the counts
 		String sql = "UPDATE orders SET shirt_completed_qty = ?, pant_completed_qty = ? WHERE order_id = ?";

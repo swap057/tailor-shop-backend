@@ -25,4 +25,14 @@ public class PendingWorkController {
         boolean success = pendingWorkDao.updateOrderProgress(order);
         return success ? "Progress Updated Successfully" : "Update Failed";
     }
+
+    @PostMapping("/update-measurements")
+    public String updateMeasurements(@RequestBody PendingOrder order) {
+        boolean success = pendingWorkDao.updateOrderMeasurements(order);
+        if (success) {
+            return "Measurements Updated Successfully";
+        } else {
+            throw new RuntimeException("Failed to update measurements");
+        }
+    }
 }
