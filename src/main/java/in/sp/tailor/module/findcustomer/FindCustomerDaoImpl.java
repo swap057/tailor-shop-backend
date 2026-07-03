@@ -18,7 +18,7 @@ public class FindCustomerDaoImpl implements FindCustomerDao {
     public List<CustomerProfileDto> getAllCustomersWithDetails() {
         try {
             // 1. Fetch All Customers
-            String customerSql = "SELECT customer_id, full_name, mobile_no, address FROM customers ORDER BY full_name ASC";
+            String customerSql = "SELECT customer_id, full_name, mobile_no, address FROM customers WHERE is_active = 1 ORDER BY full_name ASC";
             
             List<CustomerProfileDto> customers = jdbcTemplate.query(customerSql, (rs, rowNum) -> {
                 CustomerProfileDto dto = new CustomerProfileDto();
@@ -109,12 +109,37 @@ public class FindCustomerDaoImpl implements FindCustomerDao {
             }
 
             return customers;
-            
+
         } catch (Exception e) {
-            // If it crashes again, this will print the EXACT reason in your STS console
-            System.err.println("CRITICAL ERROR IN FindCustomerDaoImpl:");
-            e.printStackTrace(); 
-            throw new RuntimeException("Error fetching customer data: " + e.getMessage());
+            throwWrapped(e);
+            return null; // unreachable
         }
+    }
+
+    @Override
+    public List<CustomerProfileDto> getHiddenCustomers() {
+        String sql = "SELECT customer_id, full_name, mobile_no, address FROM customers WHERE is_active = 0 ORDER BY full_name ASC";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            CustomerProfileDto dto = new CustomerProfileDto();
+            dto.setCustomerId(rs.getInt("customer_id"));
+            dto.setFullName(rs.getString("full_name"));
+            dto.setMobileNo(rs.getString("mobile_no"));
+            dto.setAddress(rs.getString("address"));
+            return dto;
+        });
+    }
+
+    @Override
+    public boolean setCustomerActive(int customerId, boolean active) {
+        String sql = "UPDATE customers SET is_active = ? WHERE customer_id = ?";
+        int rows = jdbcTemplate.update(sql, active ? 1 : 0, customerId);
+        return rows > 0;
+    }
+
+    private void throwWrapped(Exception e) {
+        // Prints the exact reason in the server console, then surfaces a clean message
+        System.err.println("CRITICAL ERROR IN FindCustomerDaoImpl:");
+        e.printStackTrace();
+        throw new RuntimeException("Error fetching customer data: " + e.getMessage());
     }
 }
