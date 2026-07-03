@@ -87,7 +87,8 @@ public class FindCustomerDaoImpl implements FindCustomerDao {
                             latestMeasurements.setShirtFront(row.get("shirt_front") != null ? ((Number) row.get("shirt_front")).doubleValue() : 0);
                             latestMeasurements.setShirtShoulder(row.get("shirt_shoulder") != null ? ((Number) row.get("shirt_shoulder")).doubleValue() : 0);
                             latestMeasurements.setShirtSleeve(row.get("shirt_sleeve") != null ? ((Number) row.get("shirt_sleeve")).doubleValue() : 0);
-                            latestMeasurements.setShirtHalfSleeve(row.get("shirt_half_sleeve") != null ? ((Number) row.get("shirt_half_sleeve")).doubleValue() : 0);
+                            Object halfSleeveVal = row.get("shirt_half_sleeve");
+                            latestMeasurements.setShirtHalfSleeve(halfSleeveVal != null ? halfSleeveVal.toString() : "");
                             latestMeasurements.setShirtChest(row.get("shirt_chest") != null ? ((Number) row.get("shirt_chest")).doubleValue() : 0);
                             
                             // Pant Measurements

@@ -30,7 +30,7 @@ public class PendingOrder {
     private double shirtShoulder;
     private double shirtSleeve;
     private double shirtChest;
-    private double shirtHalfSleeve; // <-- ADDED THIS FIELD
+    private String shirtHalfSleeve; // CHANGED to String for two values "12 / 6"
     private String shirtStyle;
 
     // --- PANT Data ---
@@ -93,8 +93,8 @@ public class PendingOrder {
     public void setShirtSleeve(double shirtSleeve) { this.shirtSleeve = shirtSleeve; }
 
     // <-- ADDED GETTER/SETTER
-    public double getShirtHalfSleeve() { return shirtHalfSleeve; }
-    public void setShirtHalfSleeve(double shirtHalfSleeve) { this.shirtHalfSleeve = shirtHalfSleeve; }
+    public String getShirtHalfSleeve() { return shirtHalfSleeve; }
+    public void setShirtHalfSleeve(String shirtHalfSleeve) { this.shirtHalfSleeve = shirtHalfSleeve; }
 
     public String getShirtCollar() { return shirtCollar; }
     public void setShirtCollar(String shirtCollar) { this.shirtCollar = shirtCollar; }

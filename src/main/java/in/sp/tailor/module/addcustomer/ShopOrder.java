@@ -20,7 +20,7 @@ public class ShopOrder {
     private double shirtFront;
     private double shirtShoulder;
     private double shirtSleeve;
-    private double shirtHalfSleeve;   // NEW FIELD ADDED
+    private String shirtHalfSleeve;   // CHANGED to String for two values "12 / 6"
     private String shirtCollar;       // CHANGED to String for "15 / 9.5"
     private String shirtStyle;
     private int shirtQty; 
@@ -80,8 +80,8 @@ public class ShopOrder {
     public double getShirtSleeve() { return shirtSleeve; }
     public void setShirtSleeve(double shirtSleeve) { this.shirtSleeve = shirtSleeve; }
 
-    public double getShirtHalfSleeve() { return shirtHalfSleeve; }
-    public void setShirtHalfSleeve(double shirtHalfSleeve) { this.shirtHalfSleeve = shirtHalfSleeve; }
+    public String getShirtHalfSleeve() { return shirtHalfSleeve; }
+    public void setShirtHalfSleeve(String shirtHalfSleeve) { this.shirtHalfSleeve = shirtHalfSleeve; }
     
     public String getShirtCollar() { return shirtCollar; }
     public void setShirtCollar(String shirtCollar) { this.shirtCollar = shirtCollar; }
