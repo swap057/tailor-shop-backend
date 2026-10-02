@@ -17,6 +17,7 @@ public class ShopOrder {
     // --- SHIRT DETAILS ---
     private String shirtLength;       // CHANGED to String for "Reg: 32, Short: 31"
     private double shirtChest;
+    private double shirtPot;          // Pot (stomach) - optional
     private double shirtFront;
     private double shirtShoulder;
     private double shirtSleeve;
@@ -70,6 +71,9 @@ public class ShopOrder {
     public String getShirtLength() { return shirtLength; }
     public void setShirtLength(String shirtLength) { this.shirtLength = shirtLength; }
     
+    public double getShirtPot() { return shirtPot; }
+    public void setShirtPot(double shirtPot) { this.shirtPot = shirtPot; }
+
     public double getShirtChest() { return shirtChest; }
     public void setShirtChest(double shirtChest) { this.shirtChest = shirtChest; }
     

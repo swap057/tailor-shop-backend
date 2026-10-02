@@ -37,13 +37,13 @@ public class PendingWorkDaoImpl implements PendingWorkDao {
 	public boolean updateOrderMeasurements(PendingOrder order) {
 		String sql = "UPDATE orders SET " +
 				"shirt_length = ?, shirt_front = ?, shirt_shoulder = ?, shirt_sleeve = ?, " +
-				"shirt_collar = ?, shirt_chest = ?, shirt_half_sleeve = ?, shirt_remark = ?, " +
+				"shirt_collar = ?, shirt_chest = ?, shirt_pot = ?, shirt_half_sleeve = ?, shirt_remark = ?, " +
 				"pant_length = ?, pant_below_waist = ?, pant_waist = ?, pant_thigh = ?, pant_knee = ?, pant_bottom = ?, pant_remark = ? " +
 				"WHERE order_id = ?";
 
 		int rows = jdbcTemplate.update(sql,
 				order.getShirtLength(), order.getShirtFront(), order.getShirtShoulder(), order.getShirtSleeve(),
-				order.getShirtCollar(), order.getShirtChest(), order.getShirtHalfSleeve(), order.getShirtRemark(),
+				order.getShirtCollar(), order.getShirtChest(), order.getShirtPot(), order.getShirtHalfSleeve(), order.getShirtRemark(),
 				order.getPantLength(), order.getPantBelowWaist(), order.getPantWaist(), order.getPantThigh(),
 				order.getPantKnee(), order.getPantBottom(), order.getPantRemark(),
 				order.getOrderId());

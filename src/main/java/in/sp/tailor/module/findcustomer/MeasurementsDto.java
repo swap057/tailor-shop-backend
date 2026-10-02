@@ -8,6 +8,7 @@ public class MeasurementsDto {
     private double shirtSleeve;
     private String shirtCollar;
     private double shirtChest;
+    private Double shirtPot;
     private String shirtHalfSleeve;
 
     // Pant Measurements
@@ -34,6 +35,8 @@ public class MeasurementsDto {
     public String getShirtCollar() { return shirtCollar; }
     public void setShirtCollar(String shirtCollar) { this.shirtCollar = shirtCollar; }
 
+    public Double getShirtPot() { return shirtPot; }
+    public void setShirtPot(Double shirtPot) { this.shirtPot = shirtPot; }
     public double getShirtChest() { return shirtChest; }
     public void setShirtChest(double shirtChest) { this.shirtChest = shirtChest; }
 

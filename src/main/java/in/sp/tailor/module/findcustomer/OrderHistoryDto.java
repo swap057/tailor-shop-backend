@@ -5,6 +5,8 @@ public class OrderHistoryDto {
     private String date; // E.g., "2026-04-17"
     private String items; // E.g., "3 Shirts, 1 Pant"
     private String status; // E.g., "PENDING" or "COMPLETED"
+    private int shirtQty;
+    private int pantQty;
 
     // Getters and Setters
     public int getOrderId() { return orderId; }
@@ -18,4 +20,9 @@ public class OrderHistoryDto {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+    public int getShirtQty() { return shirtQty; }
+    public void setShirtQty(int shirtQty) { this.shirtQty = shirtQty; }
+
+    public int getPantQty() { return pantQty; }
+    public void setPantQty(int pantQty) { this.pantQty = pantQty; }
 }

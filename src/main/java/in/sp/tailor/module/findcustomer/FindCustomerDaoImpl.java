@@ -31,7 +31,7 @@ public class FindCustomerDaoImpl implements FindCustomerDao {
 
             // 2. Fetch All Orders (Sorted by Newest First)
             String orderSql = "SELECT order_id, customer_id, order_date, status, shirt_qty, pant_qty, " +
-                    "shirt_length, shirt_front, shirt_shoulder, shirt_sleeve, shirt_half_sleeve, shirt_collar, shirt_chest, " +
+                    "shirt_length, shirt_front, shirt_shoulder, shirt_sleeve, shirt_half_sleeve, shirt_collar, shirt_chest, shirt_pot, " +
                     "pant_length, pant_below_waist, pant_waist, pant_thigh, pant_knee, pant_bottom " +
                     "FROM orders ORDER BY order_date DESC";
 
@@ -43,6 +43,8 @@ public class FindCustomerDaoImpl implements FindCustomerDao {
                 
                 List<OrderHistoryDto> historyList = new ArrayList<>();
                 MeasurementsDto latestMeasurements = null;
+                boolean shirtFound = false;
+                boolean pantFound = false;
                 String lastOrderDateStr = null;
 
                 for (Map<String, Object> row : allOrders) {
@@ -75,13 +77,18 @@ public class FindCustomerDaoImpl implements FindCustomerDao {
                         if (itemsStr.isEmpty()) itemsStr = "No Items";
                         
                         historyDto.setItems(itemsStr.trim());
+                        historyDto.setShirtQty(sQty);
+                        historyDto.setPantQty(pQty);
                         historyList.add(historyDto);
 
-                        // Grab the measurements ONLY from their most recent order
+                        // Latest SHIRT measurements come from the newest order that had shirts,
+                        // latest PANT measurements from the newest order that had pants
+                        // (so a pant-only order does not hide the customer's shirt sizes).
                         if (latestMeasurements == null) {
                             latestMeasurements = new MeasurementsDto();
-                            
-                            // Shirt Measurements
+                        }
+                        if (sQty > 0 && !shirtFound) {
+                            shirtFound = true;
                             latestMeasurements.setShirtLength((String) row.get("shirt_length"));
                             latestMeasurements.setShirtCollar((String) row.get("shirt_collar"));
                             latestMeasurements.setShirtFront(row.get("shirt_front") != null ? ((Number) row.get("shirt_front")).doubleValue() : 0);
@@ -90,8 +97,10 @@ public class FindCustomerDaoImpl implements FindCustomerDao {
                             Object halfSleeveVal = row.get("shirt_half_sleeve");
                             latestMeasurements.setShirtHalfSleeve(halfSleeveVal != null ? halfSleeveVal.toString() : "");
                             latestMeasurements.setShirtChest(row.get("shirt_chest") != null ? ((Number) row.get("shirt_chest")).doubleValue() : 0);
-                            
-                            // Pant Measurements
+                            latestMeasurements.setShirtPot(row.get("shirt_pot") != null ? ((Number) row.get("shirt_pot")).doubleValue() : null);
+                        }
+                        if (pQty > 0 && !pantFound) {
+                            pantFound = true;
                             latestMeasurements.setPantLength((String) row.get("pant_length"));
                             latestMeasurements.setPantBottom((String) row.get("pant_bottom"));
                             latestMeasurements.setPantBelowWaist(row.get("pant_below_waist") != null ? ((Number) row.get("pant_below_waist")).doubleValue() : 0);

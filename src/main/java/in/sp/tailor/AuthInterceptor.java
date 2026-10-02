@@ -31,7 +31,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
         // Always allow the auth endpoints (status/verify) so the login screen works
         String path = request.getRequestURI();
-        if (path != null && path.startsWith("/auth/")) {
+        if (path != null && (path.startsWith("/auth/") || path.equals("/health"))) {
             return true;
         }
         // Everything else needs the correct passcode header

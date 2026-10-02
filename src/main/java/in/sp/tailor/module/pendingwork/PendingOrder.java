@@ -32,6 +32,7 @@ public class PendingOrder {
     private double shirtShoulder;
     private double shirtSleeve;
     private double shirtChest;
+    private Double shirtPot;        // Pot (stomach) - optional, empty in older orders
     private String shirtHalfSleeve; // CHANGED to String for two values "12 / 6"
     private String shirtStyle;
 
@@ -107,6 +108,8 @@ public class PendingOrder {
     public String getShirtCollar() { return shirtCollar; }
     public void setShirtCollar(String shirtCollar) { this.shirtCollar = shirtCollar; }
 
+    public Double getShirtPot() { return shirtPot; }
+    public void setShirtPot(Double shirtPot) { this.shirtPot = shirtPot; }
     public double getShirtChest() { return shirtChest; }
     public void setShirtChest(double shirtChest) { this.shirtChest = shirtChest; }
 

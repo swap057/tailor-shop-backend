@@ -17,7 +17,10 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://tailor-shop-frontend.vercel.app") // Your live Vercel frontend
+                .allowedOrigins(
+                        "https://tailor-shop-frontend.vercel.app", // Live Vercel frontend
+                        "http://localhost:3000"                    // Local React (npm start)
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
@@ -27,6 +30,6 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/auth/**");
+                .excludePathPatterns("/auth/**", "/health");
     }
 }
