@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,13 +23,15 @@ public class HealthController {
     @GetMapping("/health")
     public ResponseEntity<Map<String, String>> health() {
         Map<String, String> res = new HashMap<>();
+        // Always answer 200 OK so the ping service never switches itself off.
+        // If the database is down, we only report it in the body.
+        res.put("status", "OK");
         try {
             jdbcTemplate.queryForObject("SELECT 1", Integer.class);
-            res.put("status", "OK");
-            return ResponseEntity.ok(res);
+            res.put("database", "UP");
         } catch (Exception e) {
-            res.put("status", "DATABASE_NOT_REACHABLE");
-            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(res);
+            res.put("database", "DOWN");
         }
+        return ResponseEntity.ok(res);
     }
 }
